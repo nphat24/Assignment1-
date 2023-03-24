@@ -1,0 +1,131 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <button type="button" class="btn btn-info" onclick="Back()">Quay lại</button>
+    <h1>Products</h1>
+    <form method="post" action="/addSP">
+      <input type="submit" value="Thêm sản phẩm" class="btn btn-primary">
+    </form>
+    <hr>
+    <h2 style="background-color: aqua;">Danh sách sản phẩm</h2> <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            <form action="/search" class="search" method="post">
+              <input type="text" class="searchTerm" placeholder="Bạn muốn tìm sản ph gì?">
+              <button type="submit" class="searchButton">
+                Tìm kiếm
+              </button>
+            </form>
+          </th>
+
+        </tr>
+        <tr>
+          <th>Mã</th>
+          <th>Tên</th>
+          <th>Giá</th>
+          <th>Hình ảnh</th>
+          <th>Màu sắc</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th id="idSP">01</th>
+          <th>Áo NY</th>
+          <th>200$</th>
+          <th><img src="https://salt.tikicdn.com/cache/w1200/ts/product/4e/b2/d1/04add909341377aca88212586a8b2114.png"
+              class="img-rounded" height="80px" width="80px"></th>
+          <th>Đen</th>
+          <th>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog1">
+                Xóa
+              </button>
+            <form method="post" action="/suaSP">
+              <button type="button" class="btn btn-info" >Sửa</button>
+            </form>
+          </th>
+        </tr>
+        <tr>
+          <th id="idSP">02</th>
+          <th>Áo smile</th>
+          <th>50$</th>
+          <th><img
+              src="data:image/jpeg;base64,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"
+              class="img-rounded" height="80px" width="80px"></th>
+          <th>Trắng</th>
+          <th>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog1">
+                Xóa
+              </button>
+            <form method="post" action="/suaSP">
+              <button type="button" class="btn btn-info">Sửa</button>
+            </form>
+          </th>
+        </tr>
+        <tr>
+          <th id="idSP">03</th>
+          <th>Áo ngắn tay</th>
+          <th>10$</th>
+          <th><img
+              src="https://bizweb.dktcdn.net/thumb/large/100/415/697/products/ed27fa4d-1f51-4593-9f94-a7f2c15e162c-fd991ced-c148-42e8-86b9-a89e92f5d39b.jpg?v=1669966747000"
+              class="img-rounded" height="80px" width="80px"></th>
+          <th>Đỏ</th>
+          <th>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dialog1">
+                Xóa
+              </button>
+            <form method="post" action="/suaSP">
+              <button type="button" class="btn btn-info">Sửa</button>
+            </form>
+          </th>
+        </tr>
+      </tbody>
+      <tfoot>
+
+      </tfoot>
+    </table>
+  </div>
+  <div class="modal fade" id="dialog1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Bạn có muốn xóa không ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <h5 class="modal-title">Lưu ý : Dữ liệu sẽ biến mất vĩnh viễn !</h5>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-primary" onclick="Xoa()" data-dismiss="modal">Xóa</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  
+  function Back(){
+    history.back();
+  }
+</script>
+
+</html>
